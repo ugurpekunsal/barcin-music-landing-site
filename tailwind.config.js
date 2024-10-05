@@ -10,6 +10,11 @@ module.exports = {
 			colors: {
 				background: "var(--background)",
 				foreground: "var(--foreground)",
+				purple: {
+					200: "#e9d8fd",
+					600: "#805ad5",
+					700: "#6b46c1",
+				},
 			},
 			fontFamily: {
 				sans: ["var(--font-geist-sans)", "Arial", "sans-serif"],
