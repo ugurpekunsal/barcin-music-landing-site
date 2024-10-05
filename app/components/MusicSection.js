@@ -4,22 +4,22 @@ import Link from "next/link";
 const albums = [
 	{
 		title: "Memores Nostri",
-		cover: "/memores-nostri-cover.jpg",
+		cover: "images/memores-nostri-cover.png",
 		link: "https://open.spotify.com/album/your-album-id-1",
 	},
 	{
 		title: "Bitter",
-		cover: "/bitter-cover.jpg",
+		cover: "images/bitter-cover.png",
 		link: "https://open.spotify.com/album/your-album-id-2",
 	},
 	{
 		title: "İnan",
-		cover: "/inan-cover.jpg",
+		cover: "images/inan-cover.png",
 		link: "https://open.spotify.com/album/your-album-id-3",
 	},
 	{
 		title: "Pure Melancholy",
-		cover: "/pure-melancholy-cover.jpg",
+		cover: "images/pure-melancholy-cover.png",
 		link: "https://open.spotify.com/album/your-album-id-4",
 	},
 ];
