@@ -14,7 +14,7 @@ export default function VideoSection() {
 	];
 
 	return (
-		<section className="py-16 bg-gradient-to-b from-purple-100 to-white">
+		<section className="py-16 bg-purple-100">
 			<div className="container mx-auto px-6">
 				<h2 className="text-4xl font-bold mb-12 text-center text-purple-800">
 					{t("watchBarcinPerform")}
