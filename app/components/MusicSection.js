@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "../hooks/useTranslations";
 
 const albums = [
 	{
@@ -25,10 +28,12 @@ const albums = [
 ];
 
 export default function MusicSection() {
+	const { t } = useTranslations();
+
 	return (
 		<section id="music" className="py-16 bg-purple-100">
 			<div className="container mx-auto px-6">
-				<h2 className="text-3xl font-bold mb-8 text-center">Music</h2>
+				<h2 className="text-3xl font-bold mb-8 text-center">{t("music")}</h2>
 				<div className="grid grid-cols-2 md:grid-cols-4 gap-6">
 					{albums.map((album, index) => (
 						<Link
@@ -52,7 +57,7 @@ export default function MusicSection() {
 						href="https://open.spotify.com/artist/6cTIJAOGc7aOxEnSnSLKhb"
 						className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
 					>
-						View All on Spotify
+						{t("viewAllOnSpotify")}
 					</Link>
 				</div>
 			</div>

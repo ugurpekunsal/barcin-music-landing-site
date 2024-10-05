@@ -1,13 +1,13 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import About from "../components/About";
+import MusicSection from "../components/MusicSection";
 
-export default function AboutPage() {
+export default function MusicPage() {
 	return (
 		<>
 			<Header />
 			<main>
-				<About />
+				<MusicSection />
 			</main>
 			<Footer />
 		</>

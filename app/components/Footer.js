@@ -1,12 +1,17 @@
+"use client";
+
 import Link from "next/link";
+import { useTranslations } from "../hooks/useTranslations";
 
 export default function Footer() {
+	const { t } = useTranslations();
+
 	return (
 		<footer className="bg-purple-800 text-white py-8">
 			<div className="container mx-auto px-6">
 				<div className="flex flex-col md:flex-row justify-between items-center">
 					<div className="mb-4 md:mb-0">
-						<p>&copy; 2024 Barçın Music. All rights reserved.</p>
+						<p>{t("copyright")}</p>
 					</div>
 					<div className="flex space-x-4">
 						<Link

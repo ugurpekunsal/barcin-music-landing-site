@@ -1,3 +1,4 @@
+import { TranslationsProvider } from "./hooks/useTranslations";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -23,7 +24,7 @@ export default function RootLayout({ children }) {
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-b from-gray-100 to-purple-100 text-gray-800`}
 			>
-				{children}
+				<TranslationsProvider>{children}</TranslationsProvider>
 			</body>
 		</html>
 	);

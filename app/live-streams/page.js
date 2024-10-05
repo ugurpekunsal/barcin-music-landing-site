@@ -1,13 +1,13 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import About from "../components/About";
+import LiveStreams from "../components/LiveStreams";
 
-export default function AboutPage() {
+export default function LiveStreamsPage() {
 	return (
 		<>
 			<Header />
 			<main>
-				<About />
+				<LiveStreams />
 			</main>
 			<Footer />
 		</>
