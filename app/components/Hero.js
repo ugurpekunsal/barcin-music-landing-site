@@ -1,8 +1,9 @@
 "use client";
 
-import { useTranslations } from "../hooks/useTranslations";
-import { motion } from "framer-motion";
 import { useRef, useEffect } from "react";
+import { motion } from "framer-motion";
+import { useTranslations } from "../hooks/useTranslations";
+import Countdown from "./Countdown"; // Import the Countdown component
 
 export default function Hero() {
 	const { t } = useTranslations();
@@ -33,7 +34,9 @@ export default function Hero() {
 			<div className="absolute inset-0 bg-black opacity-50 z-10"></div>
 
 			{/* Content */}
-			<div className="relative z-20 text-center px-4">
+			<div className="relative z-20 text-center px-4 mt-[-100px]">
+				{" "}
+				{/* Adjusted margin-top */}
 				<motion.h1
 					className="text-5xl md:text-7xl font-bold text-white mb-6"
 					initial={{ opacity: 0, y: 20 }}
@@ -64,24 +67,10 @@ export default function Hero() {
 				</motion.div>
 			</div>
 
-			{/* Scroll indicator */}
-			<motion.div
-				className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
-				animate={{ y: [0, 10, 0] }}
-				transition={{ duration: 1.5, repeat: Infinity }}
-			>
-				<svg
-					className="w-6 h-6 text-white"
-					fill="none"
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					strokeWidth="2"
-					viewBox="0 0 24 24"
-					stroke="currentColor"
-				>
-					<path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-				</svg>
-			</motion.div>
+			{/* Countdown */}
+			<div className="absolute bottom-0 left-0 right-0 z-30">
+				<Countdown />
+			</div>
 		</section>
 	);
 }

@@ -2,7 +2,7 @@
 	"home": "Ana Sayfa",
 	"music": "Müzik",
 	"about": "Hakkında",
-	"liveStreams": "Canlı Yayınlar",
+	"live": "Canlı",
 	"blendingEmotions": "Duygular ve Melodiler Harmanlanıyor",
 	"latestRelease": "Son Çıkan",
 	"listenNow": "Şimdi Dinle",
@@ -36,5 +36,16 @@
 	"videoDescription": "Barçın'ın etkileyici 'Yine Bir Gidene' performansını deneyimleyin.",
 	"quickLinks": "Hızlı Bağlantılar",
 	"contact": "İletişim",
-	"emailContact": "E-posta"
+	"emailContact": "E-posta",
+	"joinOurCommunity": "Topluluğumuza Katılın",
+	"communityDescription": "Diğer müzikseverlerle bağlantı kurun, özel güncellemeler alın ve Barçın ile canlı soru-cevap oturumlarına katılın. Discord topluluğumuz, müzik sevginizi paylaşmak ve en son çıkışlar ve etkinlikler hakkında güncel kalmak için mükemmel bir yer.",
+	"communityFeatures": "Topluluk Özellikleri",
+	"feature1": "Özel kamera arkası içerikler",
+	"feature2": "Barçın ile canlı soru-cevap oturumları",
+	"feature3": "Yeni çıkışlara erken erişim",
+	"feature4": "İşbirlikçi çalma listeleri ve müzik tartışmaları",
+	"recentActivities": "Son Etkinlikler",
+	"activity1": "Yeni albüm dinleme partisi - Bu Cuma bize katılın!",
+	"activity2": "Topluluk cover yarışması - Şimdi katılımlarınızı gönderin",
+	"activity3": "Aylık müzik prodüksiyon atölyesi - Kayıtlar açık"
 }

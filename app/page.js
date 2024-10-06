@@ -5,6 +5,7 @@ import MusicSection from "./components/MusicSection";
 import About from "./components/About";
 import LiveStreams from "./components/LiveStreams";
 import Footer from "./components/Footer";
+import MailingList from "./components/MailingList";
 
 export default function Home() {
 	return (
@@ -15,6 +16,7 @@ export default function Home() {
 				<LatestRelease />
 				<MusicSection />
 				<About />
+				<MailingList />
 				<LiveStreams />
 			</main>
 			<Footer />

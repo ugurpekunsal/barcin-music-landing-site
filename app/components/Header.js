@@ -3,9 +3,28 @@
 import Link from "next/link";
 import LanguageSelector from "./LanguageSelector";
 import { useTranslations } from "../hooks/useTranslations";
+import { usePathname } from "next/navigation";
+
+const RecordingIcon = () => (
+	<svg
+		className="w-2 h-2 ml-1 animate-pulse"
+		viewBox="0 0 100 100"
+		xmlns="http://www.w3.org/2000/svg"
+	>
+		<circle cx="50" cy="50" r="50" fill="red" />
+	</svg>
+);
 
 export default function Header() {
 	const { t } = useTranslations();
+	const pathname = usePathname();
+
+	const navItems = [
+		{ href: "/", label: "home" },
+		{ href: "/music", label: "music" },
+		{ href: "/about", label: "about" },
+		{ href: "/live", label: "live", icon: <RecordingIcon /> },
+	];
 
 	return (
 		<header className="bg-purple-800 bg-opacity-90 fixed w-full z-20">
@@ -14,30 +33,18 @@ export default function Header() {
 					Barçın
 				</Link>
 				<div className="flex space-x-4 items-center">
-					<Link
-						href="/"
-						className="text-purple-200 hover:text-white transition duration-300"
-					>
-						{t("home")}
-					</Link>
-					<Link
-						href="/music"
-						className="text-purple-200 hover:text-white transition duration-300"
-					>
-						{t("music")}
-					</Link>
-					<Link
-						href="/about"
-						className="text-purple-200 hover:text-white transition duration-300"
-					>
-						{t("about")}
-					</Link>
-					<Link
-						href="/live-streams"
-						className="text-purple-200 hover:text-white transition duration-300"
-					>
-						{t("liveStreams")}
-					</Link>
+					{navItems.map((item) => (
+						<Link
+							key={item.href}
+							href={item.href}
+							className={`text-purple-200 hover:text-white transition duration-300 flex items-center ${
+								pathname === item.href ? "border-b-2 border-white" : ""
+							}`}
+						>
+							{t(item.label)}
+							{item.icon}
+						</Link>
+					))}
 					<LanguageSelector />
 				</div>
 			</nav>

@@ -1,0 +1,23 @@
+.countdown {
+	@apply bg-purple-100 rounded-lg p-6 text-center shadow-lg my-8;
+}
+
+.title {
+	@apply text-2xl font-bold mb-4;
+}
+
+.timer {
+	@apply flex justify-center gap-4;
+}
+
+.timeUnit {
+	@apply flex flex-col items-center;
+}
+
+.number {
+	@apply text-3xl font-bold bg-purple-600 text-white p-3 rounded-lg min-w-[70px] shadow-md;
+}
+
+.label {
+	@apply text-sm mt-2 uppercase;
+}

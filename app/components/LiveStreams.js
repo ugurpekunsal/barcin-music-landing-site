@@ -12,9 +12,7 @@ export default function LiveStreams() {
 	return (
 		<section id="live-streams" className="py-16 bg-purple-100">
 			<div className="container mx-auto px-6">
-				<h2 className="text-3xl font-bold mb-8 text-center">
-					{t("liveStreams")}
-				</h2>
+				<h2 className="text-3xl font-bold mb-8 text-center">{t("live")}</h2>
 				<div className="flex justify-center mb-4">
 					<button
 						onClick={() => setActiveStream("twitch")}
@@ -81,38 +79,6 @@ export default function LiveStreams() {
 							</Link>
 						)}
 					</div>
-				</div>
-				<div className="max-w-4xl mx-auto">
-					<h3 className="text-2xl font-semibold mb-4 text-center">
-						{t("supportBarcin")}
-					</h3>
-					<p className="mb-4">{t("supportMessage")}</p>
-					<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-						<div className="bg-white p-4 rounded shadow">
-							<h4 className="font-semibold mb-2">Papara</h4>
-							<p>{t("paparaSupport")}</p>
-						</div>
-						<div className="bg-white p-4 rounded shadow">
-							<h4 className="font-semibold mb-2">Shopier - Tablolarım</h4>
-							<p>{t("shopierDescription")}</p>
-						</div>
-						<div className="bg-white p-4 rounded shadow">
-							<h4 className="font-semibold mb-2">PayPal</h4>
-							<p>{t("paypalSupport")}</p>
-						</div>
-					</div>
-				</div>
-				<div className="mt-8 text-center">
-					<h3 className="text-2xl font-semibold mb-4">
-						{t("songListDescription")}
-					</h3>
-					<p className="mb-4">{t("songListDescription")}</p>
-					<Link
-						href="https://www.streamersonglist.com/t/barcinmusic/songs"
-						className="text-purple-600 hover:text-purple-800"
-					>
-						{t("viewSongList")}
-					</Link>
 				</div>
 			</div>
 		</section>
