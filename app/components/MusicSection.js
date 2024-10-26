@@ -7,22 +7,22 @@ import { useTranslations } from "../hooks/useTranslations";
 const albums = [
 	{
 		title: "Memores Nostri",
-		cover: "images/memores-nostri-cover.png",
+		cover: "/images/memores-nostri-cover.jpg",
 		link: "https://open.spotify.com/album/your-album-id-1",
 	},
 	{
 		title: "Bitter",
-		cover: "images/bitter-cover.png",
+		cover: "/images/bitter-cover.png",
 		link: "https://open.spotify.com/album/your-album-id-2",
 	},
 	{
 		title: "İnan",
-		cover: "images/inan-cover.png",
+		cover: "/images/inan-cover.png",
 		link: "https://open.spotify.com/album/your-album-id-3",
 	},
 	{
 		title: "Pure Melancholy",
-		cover: "images/pure-melancholy-cover.png",
+		cover: "/images/pure-melancholy-cover.png",
 		link: "https://open.spotify.com/album/your-album-id-4",
 	},
 ];

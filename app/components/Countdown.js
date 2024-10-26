@@ -4,6 +4,12 @@ import React, { useState, useEffect } from "react";
 import styles from "./Countdown.module.css";
 import { useTranslations } from "../hooks/useTranslations";
 import Link from "next/link";
+import { createClient } from "contentful";
+
+const contentfulClient = createClient({
+	space: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID,
+	accessToken: process.env.NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN,
+});
 
 const Countdown = () => {
 	const { t } = useTranslations();
@@ -15,29 +21,41 @@ const Countdown = () => {
 	});
 
 	useEffect(() => {
-		// Set the date we're counting down to
-		const countDownDate = new Date("2024-12-31T00:00:00").getTime();
-
-		const timer = setInterval(() => {
-			const now = new Date().getTime();
-			const distance = countDownDate - now;
-
-			setTimeLeft({
-				days: Math.floor(distance / (1000 * 60 * 60 * 24)),
-				hours: Math.floor(
-					(distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-				),
-				minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
-				seconds: Math.floor((distance % (1000 * 60)) / 1000),
+		const fetchCountdownDate = async () => {
+			const entry = await contentfulClient.getEntries({
+				content_type: "barcinMusic",
+				limit: 1,
 			});
 
-			if (distance < 0) {
-				clearInterval(timer);
-				setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-			}
-		}, 1000);
+			if (entry.items.length > 0) {
+				const countDownDate = new Date(
+					entry.items[0].fields.countdownDate
+				).getTime();
 
-		return () => clearInterval(timer);
+				const timer = setInterval(() => {
+					const now = new Date().getTime();
+					const distance = countDownDate - now;
+
+					setTimeLeft({
+						days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+						hours: Math.floor(
+							(distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+						),
+						minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+						seconds: Math.floor((distance % (1000 * 60)) / 1000),
+					});
+
+					if (distance < 0) {
+						clearInterval(timer);
+						setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+					}
+				}, 1000);
+
+				return () => clearInterval(timer);
+			}
+		};
+
+		fetchCountdownDate();
 	}, []);
 
 	return (

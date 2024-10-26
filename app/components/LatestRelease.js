@@ -10,7 +10,7 @@ export default function LatestRelease() {
 				<h2 className="text-3xl font-bold mb-8 text-center">Latest Release</h2>
 				<div className="flex flex-col md:flex-row items-center justify-center">
 					<Image
-						src="images/memores-nostri-cover.png"
+						src="/images/memores-nostri-cover.jpg"
 						alt="Memores Nostri Album Cover"
 						width={300}
 						height={300}
