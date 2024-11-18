@@ -22,7 +22,7 @@ export default function LatestRelease() {
 							Experience Barcın&apos;s latest emotional journey through sound.
 						</p>
 						<Link
-							href="https://open.spotify.com/album/your-album-id"
+							href="https://open.spotify.com/album/your-56rSfAxXbHdmsMD0hoqDgP?si=z_qq-X6DRDGxRyP-GSv7HQ"
 							className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded inline-flex items-center"
 						>
 							<svg

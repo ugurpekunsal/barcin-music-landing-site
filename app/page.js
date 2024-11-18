@@ -9,17 +9,15 @@ import MailingList from "./components/MailingList";
 
 export default function Home() {
 	return (
-		<>
+		<main>
 			<Header />
-			<main>
-				<Hero />
-				<LatestRelease />
-				<MusicSection />
-				<About />
-				<MailingList />
-				<LiveStreams />
-			</main>
+			<Hero />
+			<LatestRelease />
+			<MusicSection />
+			<About />
+			<MailingList />
+			<LiveStreams />
 			<Footer />
-		</>
+		</main>
 	);
 }

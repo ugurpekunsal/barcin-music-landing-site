@@ -8,22 +8,22 @@ const albums = [
 	{
 		title: "Memores Nostri",
 		cover: "/images/memores-nostri-cover.jpg",
-		link: "https://open.spotify.com/album/your-album-id-1",
+		link: "https://open.spotify.com/album/56rSfAxXbHdmsMD0hoqDgP?si=z_qq-X6DRDGxRyP-GSv7HQ",
 	},
 	{
 		title: "Bitter",
 		cover: "/images/bitter-cover.png",
-		link: "https://open.spotify.com/album/your-album-id-2",
+		link: "https://open.spotify.com/album/1BYvgKXvNxnWwtt6NyBBz3?si=Oc_CzVKPQOeyM77MOfmqmw",
 	},
 	{
 		title: "İnan",
 		cover: "/images/inan-cover.png",
-		link: "https://open.spotify.com/album/your-album-id-3",
+		link: "https://open.spotify.com/album/4OGKoI017XPRVMUczxOWW6?si=5CqEWgYwTZeMmLiIiPXjQw",
 	},
 	{
 		title: "Pure Melancholy",
 		cover: "/images/pure-melancholy-cover.png",
-		link: "https://open.spotify.com/album/your-album-id-4",
+		link: "https://open.spotify.com/album/https://open.spotify.com/album/7A0SYBDUZDGWC64NPLsgNU?si=Sy3snsAnRPuLF0vetbym4Q",
 	},
 ];
 
