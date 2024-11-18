@@ -40,7 +40,7 @@ export default function LiveStreams() {
 						<div className="aspect-w-16 aspect-h-9">
 							{activeStream === "twitch" ? (
 								<iframe
-									src="https://player.twitch.tv/?channel=barcinmusic&parent=barcin-music-landing-site.vercel.app"
+									src="https://player.twitch.tv/?channel=barcinmusic&parent=barcinmusic.com"
 									frameBorder="0"
 									allowFullScreen={true}
 									scrolling="no"
