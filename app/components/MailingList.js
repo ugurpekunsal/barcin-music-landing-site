@@ -6,18 +6,67 @@ import styles from "./Countdown.module.css"; // Import the same styles as Countd
 const MailingList = () => {
 	const { t } = useTranslations();
 	const [email, setEmail] = useState("");
+	const [status, setStatus] = useState("idle");
+	const [message, setMessage] = useState(null);
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		// TODO: Implement mailing list signup logic
-		console.log("Mailing list signup:", email);
-		setEmail("");
+		setStatus("loading");
+		setMessage(null);
+
+		try {
+			const response = await fetch("/api/subscribe", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ email }),
+			});
+
+			const data = await response.json();
+
+			if (!response.ok) {
+				setStatus("error");
+				switch (data.message) {
+					case "Email already subscribed":
+						setMessage(t("emailAlreadySubscribed"));
+						break;
+					case "Already subscribed from this location":
+						setMessage(t("alreadySubscribedFromIP"));
+						break;
+					case "Invalid email address":
+						setMessage(t("invalidEmail"));
+						break;
+					default:
+						setMessage(data.message || t("subscribeError"));
+				}
+				return;
+			}
+
+			setStatus("success");
+			setMessage(t("subscribeSuccess"));
+			setEmail("");
+		} catch (err) {
+			setStatus("error");
+			setMessage(t("subscribeError"));
+		}
 	};
 
 	return (
 		<div className={`${styles.countdown} container mx-auto px-6`}>
 			<h2 className={styles.title}>{t("joinMailingList")}</h2>
 			<p className="text-purple-700 mb-4">{t("mailingListDescription")}</p>
+
+			{message && (
+				<p
+					className={`mb-4 ${
+						status === "success" ? "text-green-600" : "text-red-600"
+					}`}
+				>
+					{message}
+				</p>
+			)}
+
 			<form
 				onSubmit={handleSubmit}
 				className="flex flex-col sm:flex-row justify-center items-center gap-4"
@@ -28,13 +77,15 @@ const MailingList = () => {
 					onChange={(e) => setEmail(e.target.value)}
 					placeholder={t("enterEmail")}
 					required
-					className="w-full sm:w-auto px-4 py-2 rounded-full border-2 border-purple-300 focus:outline-none focus:border-purple-500"
+					disabled={status === "loading"}
+					className="w-full sm:w-auto px-4 py-2 rounded-full border-2 border-purple-300 focus:outline-none focus:border-purple-500 disabled:opacity-50"
 				/>
 				<button
 					type="submit"
-					className="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-full transition duration-300"
+					disabled={status === "loading"}
+					className="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-full transition duration-300 disabled:opacity-50"
 				>
-					{t("subscribe")}
+					{status === "loading" ? t("subscribing") : t("subscribe")}
 				</button>
 			</form>
 		</div>

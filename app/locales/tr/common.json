@@ -48,5 +48,11 @@
 	"activity1": "Yeni albüm dinleme partisi - Bu Cuma bize katılın!",
 	"activity2": "Topluluk cover yarışması - Şimdi katılımlarınızı gönderin",
 	"activity3": "Aylık müzik prodüksiyon atölyesi - Kayıtlar açık",
-	"liveStream": "Canlı Yayın"
+	"liveStream": "Canlı Yayın",
+	"subscribing": "Kaydediliyor...",
+	"subscribeSuccess": "Abone olduğunuz için teşekkürler!",
+	"subscribeError": "Abonelik başarısız oldu. Lütfen tekrar deneyin.",
+	"emailAlreadySubscribed": "Bu e-posta zaten kayıtlı.",
+	"invalidEmail": "Lütfen geçerli bir e-posta adresi girin.",
+	"alreadySubscribedFromIP": "Bu konumdan zaten bir abonelik mevcut."
 }

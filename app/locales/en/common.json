@@ -58,5 +58,11 @@
 	"mailingListDescription": "Stay updated with the latest news, releases, and exclusive content!",
 	"enterEmail": "Enter your email",
 	"subscribe": "Subscribe",
-	"liveStream": "Live Stream"
+	"liveStream": "Live Stream",
+	"subscribing": "Subscribing...",
+	"subscribeSuccess": "Thank you for subscribing!",
+	"subscribeError": "Failed to subscribe. Please try again.",
+	"emailAlreadySubscribed": "This email is already subscribed.",
+	"invalidEmail": "Please enter a valid email address.",
+	"alreadySubscribedFromIP": "A subscription already exists from this location."
 }
