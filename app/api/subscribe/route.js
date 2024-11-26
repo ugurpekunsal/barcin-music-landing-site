@@ -2,10 +2,7 @@ import { RateLimit } from '@/app/utils/rateLimit';
 import { createClient } from "contentful-management";
 import { headers } from 'next/headers';
 
-const limiter = new RateLimit({
-	windowMs: 15 * 60 * 1000, // 15 minutes
-	max: 5 // limit each IP to 5 requests per windowMs
-});
+const limiter = new RateLimit();
 
 export async function POST(request) {
 	try {
@@ -47,9 +44,9 @@ export async function POST(request) {
 			);
 		}
 
-		// Sanitize and validate input
+		// Validate and sanitize input
 		const { email } = await request.json();
-		const sanitizedEmail = email.trim().toLowerCase();
+		const sanitizedEmail = email?.trim().toLowerCase();
 		
 		if (!sanitizedEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(sanitizedEmail)) {
 			return new Response(

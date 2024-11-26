@@ -15,7 +15,7 @@ const MailingList = () => {
 		setMessage(null);
 
 		try {
-			const response = await fetch("/api/subscribe", {
+			const response = await fetch("https://formspree.io/f/your-form-id", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -23,29 +23,14 @@ const MailingList = () => {
 				body: JSON.stringify({ email }),
 			});
 
-			const data = await response.json();
-
-			if (!response.ok) {
+			if (response.ok) {
+				setStatus("success");
+				setMessage(t("subscribeSuccess"));
+				setEmail("");
+			} else {
 				setStatus("error");
-				switch (data.message) {
-					case "Email already subscribed":
-						setMessage(t("emailAlreadySubscribed"));
-						break;
-					case "Already subscribed from this location":
-						setMessage(t("alreadySubscribedFromIP"));
-						break;
-					case "Invalid email address":
-						setMessage(t("invalidEmail"));
-						break;
-					default:
-						setMessage(data.message || t("subscribeError"));
-				}
-				return;
+				setMessage(t("subscribeError"));
 			}
-
-			setStatus("success");
-			setMessage(t("subscribeSuccess"));
-			setEmail("");
 		} catch (err) {
 			setStatus("error");
 			setMessage(t("subscribeError"));

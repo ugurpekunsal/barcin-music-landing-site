@@ -1,30 +1,30 @@
 export class RateLimit {
-  constructor(options) {
+  constructor() {
     this.requests = new Map();
-    this.windowMs = options.windowMs || 60000; // 1 minute default
-    this.max = options.max || 5; // 5 requests per window default
   }
 
-  async check(ip) {
+  async check(ip, limit = 5, windowMs = 60000) {
     const now = Date.now();
-    const windowStart = now - this.windowMs;
-
-    // Clean old requests
-    this.requests.forEach((timestamp, key) => {
-      if (timestamp < windowStart) {
+    const windowStart = now - windowMs;
+    
+    // Clean old entries
+    this.requests.forEach((timestamps, key) => {
+      const filtered = timestamps.filter(time => time > windowStart);
+      if (filtered.length === 0) {
         this.requests.delete(key);
+      } else {
+        this.requests.set(key, filtered);
       }
     });
 
-    // Get existing requests for this IP
-    const requestTimestamps = this.requests.get(ip) || [];
-    const recentRequests = requestTimestamps.filter(time => time > windowStart);
+    // Get/create timestamps for this IP
+    const timestamps = this.requests.get(ip) || [];
+    const recentRequests = timestamps.filter(time => time > windowStart);
 
-    if (recentRequests.length >= this.max) {
+    if (recentRequests.length >= limit) {
       return false;
     }
 
-    // Add new request
     this.requests.set(ip, [...recentRequests, now]);
     return true;
   }

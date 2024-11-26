@@ -1,6 +1,12 @@
+import { validateEnv } from './utils/env';
 import { TranslationsProvider } from "./hooks/useTranslations";
 import localFont from "next/font/local";
 import "./globals.css";
+
+// Validate environment variables during initialization
+if (process.env.NODE_ENV !== 'development') {
+	validateEnv();
+}
 
 const geistSans = localFont({
 	src: "../public/fonts/GeistVF.woff",
