@@ -1,6 +1,6 @@
 const requiredEnvVars = [
   'NEXT_PUBLIC_CONTENTFUL_SPACE_ID',
-  'CONTENTFUL_MANAGEMENT_TOKEN',
+  'NEXT_PUBLIC_CONTENTFUL_ACCESS_TOKEN',
 ];
 
 export function validateEnv() {
@@ -20,10 +20,5 @@ export function validateEnv() {
     throw new Error('Invalid CONTENTFUL_SPACE_ID format');
   }
 
-  // Validate Management Token format (should be a long string)
-  if (process.env.CONTENTFUL_MANAGEMENT_TOKEN.length < 20) {
-    throw new Error('CONTENTFUL_MANAGEMENT_TOKEN seems invalid');
-  }
-
-  return true; // If we get here, all validations passed
+  return true;
 } 
