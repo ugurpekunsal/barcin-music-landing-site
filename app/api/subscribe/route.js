@@ -1,27 +1,68 @@
+import { RateLimit } from '@/app/utils/rateLimit';
 import { createClient } from "contentful-management";
+import { headers } from 'next/headers';
+
+const limiter = new RateLimit({
+	windowMs: 15 * 60 * 1000, // 15 minutes
+	max: 5 // limit each IP to 5 requests per windowMs
+});
 
 export async function POST(request) {
 	try {
-		const { email } = await request.json();
-
-		// Get IP address from various possible headers
-		const forwarded = request.headers.get("x-forwarded-for");
-		const ip = forwarded
-			? forwarded.split(",")[0]
-			: request.headers.get("x-real-ip");
+		// Get IP address
+		const headersList = headers();
+		const forwarded = headersList.get("x-forwarded-for");
+		const ip = forwarded ? forwarded.split(',')[0] : headersList.get("x-real-ip");
 
 		if (!ip) {
 			return new Response(
-				JSON.stringify({ message: "Could not verify request origin" }),
-				{ status: 400 }
+				JSON.stringify({ 
+					error: "INVALID_REQUEST",
+					message: "Could not verify request origin" 
+				}), 
+				{ 
+					status: 400,
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}
 			);
 		}
 
-		// Validate email
-		if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+		// Check rate limit
+		const isAllowed = await limiter.check(ip);
+		if (!isAllowed) {
 			return new Response(
-				JSON.stringify({ message: "Invalid email address" }),
-				{ status: 400 }
+				JSON.stringify({ 
+					error: "RATE_LIMIT_EXCEEDED",
+					message: "Too many requests, please try again later" 
+				}), 
+				{ 
+					status: 429,
+					headers: {
+						'Content-Type': 'application/json',
+						'Retry-After': '900' // 15 minutes in seconds
+					}
+				}
+			);
+		}
+
+		// Sanitize and validate input
+		const { email } = await request.json();
+		const sanitizedEmail = email.trim().toLowerCase();
+		
+		if (!sanitizedEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(sanitizedEmail)) {
+			return new Response(
+				JSON.stringify({ 
+					error: "INVALID_EMAIL",
+					message: "Invalid email address" 
+				}), 
+				{ 
+					status: 400,
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				}
 			);
 		}
 
@@ -37,11 +78,11 @@ export async function POST(request) {
 		// Check for existing entries with this email
 		const entries = await environment.getEntries({
 			content_type: "subscriber",
-			"fields.email[match]": email,
+			"fields.email[match]": sanitizedEmail,
 		});
 
 		if (entries.items.length > 0) {
-			console.log("Found existing email:", email);
+			console.log("Found existing email:", sanitizedEmail);
 			return new Response(
 				JSON.stringify({ message: "Email already subscribed" }),
 				{ status: 400 }
@@ -53,7 +94,7 @@ export async function POST(request) {
 			const entry = await environment.createEntry("subscriber", {
 				fields: {
 					email: {
-						"en-US": email,
+						"en-US": sanitizedEmail,
 					},
 					ipAddress: {
 						"en-US":
