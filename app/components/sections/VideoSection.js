@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "../hooks/useTranslations";
+import { useTranslations } from "../../hooks/useTranslations";
 import { useState } from "react";
 
 export default function VideoSection() {
@@ -16,9 +16,7 @@ export default function VideoSection() {
 	return (
 		<section className="py-16 bg-purple-100">
 			<div className="container mx-auto px-6">
-				<h2 className="text-4xl font-bold mb-12 text-center text-purple-800">
-					{t("watchBarcinPerform")}
-				</h2>
+				<h2 className="section-heading">{t("watchBarcinPerform")}</h2>
 				<div className="max-w-5xl mx-auto">
 					<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 						<div className="md:col-span-2">

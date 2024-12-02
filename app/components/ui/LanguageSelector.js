@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "../hooks/useTranslations";
+import { useTranslations } from "../../hooks/useTranslations";
 
 export default function LanguageSelector() {
 	const { changeLanguage, locale } = useTranslations();

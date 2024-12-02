@@ -2,13 +2,16 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "../../hooks/useTranslations";
 
 export default function LatestRelease() {
+	const { t } = useTranslations();
+
 	return (
 		<section id="latest-release" className="py-16 bg-white">
 			<div className="container mx-auto px-6">
-				<h2 className="text-3xl font-bold mb-8 text-center">Latest Release</h2>
-				<div className="flex flex-col md:flex-row items-center justify-center">
+				<h2 className="section-heading">{t("latestRelease")}</h2>
+				<div className="flex flex-col md:flex-row items-center justify-center gap-8">
 					<Image
 						src="/images/memores-nostri-cover.jpg"
 						alt="Memores Nostri Album Cover"

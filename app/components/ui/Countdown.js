@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import styles from "./Countdown.module.css";
-import { useTranslations } from "../hooks/useTranslations";
+import { useTranslations } from "../../hooks/useTranslations";
 import Link from "next/link";
 
 const Countdown = () => {

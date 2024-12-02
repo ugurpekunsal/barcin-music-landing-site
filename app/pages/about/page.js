@@ -1,7 +1,7 @@
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-import About from "../../components/About";
-import SupportBarcin from "../../components/SupportBarcin";
+import Header from "../../components/layout/Header";
+import Footer from "../../components/layout/Footer";
+import About from "../../components/sections/About";
+import SupportBarcin from "../../components/sections/SupportBarcin";
 export default function AboutPage() {
 	return (
 		<>

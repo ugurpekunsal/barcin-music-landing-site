@@ -2,8 +2,8 @@
 
 import { useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import { useTranslations } from "../hooks/useTranslations";
-import Countdown from "./Countdown"; // Import the Countdown component
+import { useTranslations } from "../../hooks/useTranslations";
+import Countdown from "../ui/Countdown"; // Import the Countdown component
 
 export default function Hero() {
 	const { t } = useTranslations();

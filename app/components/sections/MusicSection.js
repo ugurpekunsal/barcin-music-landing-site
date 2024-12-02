@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useTranslations } from "../hooks/useTranslations";
+import { useTranslations } from "../../hooks/useTranslations";
 
 const albums = [
 	{
@@ -31,9 +31,9 @@ export default function MusicSection() {
 	const { t } = useTranslations();
 
 	return (
-		<section id="music" className="py-16 bg-purple-100">
+		<section id="music" className="py-16 mt-20 bg-purple-100">
 			<div className="container mx-auto px-6">
-				<h2 className="text-3xl font-bold mb-8 text-center">{t("music")}</h2>
+				<h2 className="section-heading">{t("music")}</h2>
 				<div className="grid grid-cols-2 md:grid-cols-4 gap-6">
 					{albums.map((album, index) => (
 						<Link

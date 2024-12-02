@@ -1,11 +1,11 @@
-import Header from "./components/Header";
-import Hero from "./components/Hero";
-import LatestRelease from "./components/LatestRelease";
-import MusicSection from "./components/MusicSection";
-import About from "./components/About";
-import LiveStreams from "./components/LiveStreams";
-import Footer from "./components/Footer";
-import MailingList from "./components/MailingList";
+import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
+import Hero from "./components/sections/Hero";
+import LatestRelease from "./components/sections/LatestRelease";
+import MusicSection from "./components/sections/MusicSection";
+import About from "./components/sections/About";
+import LiveStreams from "./components/sections/LiveStreams";
+import MailingList from "./components/sections/MailingList";
 
 export default function Home() {
 	return (

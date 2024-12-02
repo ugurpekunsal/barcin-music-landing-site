@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { useTranslations } from "../hooks/useTranslations";
-import styles from "./Countdown.module.css"; // Import the same styles as Countdown
+import { useTranslations } from "../../hooks/useTranslations";
+import styles from "../ui/Countdown.module.css";
 
 const MailingList = () => {
 	const { t } = useTranslations();

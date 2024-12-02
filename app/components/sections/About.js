@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "../hooks/useTranslations";
+import { useTranslations } from "../../hooks/useTranslations";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -39,11 +39,9 @@ export default function About() {
 	const { t } = useTranslations();
 
 	return (
-		<section id="about" className="py-16 bg-white">
+		<section id="about" className="py-16 bg-white mt-20 w-full">
 			<div className="container mx-auto px-6">
-				<h2 className="text-3xl font-bold mb-8 text-center">
-					{t("aboutBarcin")}
-				</h2>
+				<h2 className="section-heading">{t("aboutBarcin")}</h2>
 				<div className="max-w-4xl mx-auto">
 					<div className="flex flex-col md:flex-row items-center mb-8">
 						<div className="md:w-1/3 mb-4 md:mb-0">

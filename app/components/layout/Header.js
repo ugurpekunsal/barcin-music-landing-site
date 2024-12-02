@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import LanguageSelector from "./LanguageSelector";
-import { useTranslations } from "../hooks/useTranslations";
+import LanguageSelector from "../ui/LanguageSelector";
+import { useTranslations } from "../../hooks/useTranslations";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 

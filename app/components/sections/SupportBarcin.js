@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "../hooks/useTranslations";
+import { useTranslations } from "../../hooks/useTranslations";
 import Link from "next/link";
 
 export default function SupportBarcin() {
@@ -9,9 +9,7 @@ export default function SupportBarcin() {
 	return (
 		<section className="py-16 bg-purple-100">
 			<div className="container mx-auto px-6">
-				<h2 className="text-3xl font-bold mb-8 text-center">
-					{t("supportBarcin")}
-				</h2>
+				<h2 className="section-heading">{t("supportBarcin")}</h2>
 				<div className="max-w-2xl mx-auto text-center mb-8">
 					<p className="mb-4">{t("supportMessage")}</p>
 					<div className="flex justify-center space-x-4">

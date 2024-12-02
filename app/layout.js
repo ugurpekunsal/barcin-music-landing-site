@@ -1,10 +1,10 @@
-import { validateEnv } from './utils/env';
+import { validateEnv } from "./utils/env";
 import { TranslationsProvider } from "./hooks/useTranslations";
 import localFont from "next/font/local";
 import "./globals.css";
 
 // Validate environment variables during initialization
-if (process.env.NODE_ENV !== 'development') {
+if (process.env.NODE_ENV !== "development") {
 	validateEnv();
 }
 
@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
 	return (
 		<html lang="en">
 			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-b from-gray-100 to-purple-100 text-gray-800`}
+				className={`${geistSans.variable} ${geistMono.variable} antialiased bg-purple-100 text-gray-800`}
 			>
 				<TranslationsProvider>{children}</TranslationsProvider>
 			</body>
