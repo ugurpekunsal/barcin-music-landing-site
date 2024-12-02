@@ -1,3 +1,5 @@
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 import { validateEnv } from "./utils/env";
 import { TranslationsProvider } from "./hooks/useTranslations";
 import localFont from "next/font/local";
@@ -24,7 +26,9 @@ export const metadata = {
 	description: "Official website of Barçın, New Age and world music artist",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+	const supabase = createServerComponentClient({ cookies });
+
 	return (
 		<html lang="en">
 			<body

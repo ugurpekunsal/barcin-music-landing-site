@@ -63,5 +63,6 @@
 	"subscribeError": "Failed to subscribe. Please try again.",
 	"emailAlreadySubscribed": "This email is already subscribed.",
 	"invalidEmail": "Please enter a valid email address.",
-	"alreadySubscribedFromIP": "A subscription already exists from this location."
+	"alreadySubscribedFromIP": "A subscription already exists from this location.",
+	"liveStreams": "Live Streams"
 }

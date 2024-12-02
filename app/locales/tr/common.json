@@ -58,5 +58,6 @@
 	"subscribeError": "Abonelik başarısız oldu. Lütfen tekrar deneyin.",
 	"emailAlreadySubscribed": "Bu e-posta zaten kayıtlı.",
 	"invalidEmail": "Lütfen geçerli bir e-posta adresi girin.",
-	"alreadySubscribedFromIP": "Bu konumdan zaten bir abonelik mevcut."
+	"alreadySubscribedFromIP": "Bu konumdan zaten bir abonelik mevcut.",
+	"liveStreams": "Canlı Yayınlar"
 }
