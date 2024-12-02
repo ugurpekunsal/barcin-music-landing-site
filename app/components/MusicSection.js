@@ -39,6 +39,8 @@ export default function MusicSection() {
 						<Link
 							key={index}
 							href={album.link}
+							target="_blank"
+							rel="noopener noreferrer"
 							className="transition transform hover:scale-105"
 						>
 							<Image
@@ -55,6 +57,8 @@ export default function MusicSection() {
 				<div className="text-center mt-8">
 					<Link
 						href="https://open.spotify.com/artist/6cTIJAOGc7aOxEnSnSLKhb"
+						target="_blank"
+						rel="noopener noreferrer"
 						className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
 					>
 						{t("viewAllOnSpotify")}

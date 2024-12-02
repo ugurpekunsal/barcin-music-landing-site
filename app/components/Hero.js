@@ -16,7 +16,7 @@ export default function Hero() {
 	}, []);
 
 	return (
-		<section className="relative z-10 min-h-screen flex items-center justify-center text-center pt-16">
+		<section className="relative z-10 min-h-screen flex items-center justify-center text-center">
 			{/* Video background */}
 			<video
 				ref={videoRef}
@@ -35,8 +35,6 @@ export default function Hero() {
 
 			{/* Content */}
 			<div className="relative z-20 text-center px-4 mt-[-100px]">
-				{" "}
-				{/* Adjusted margin-top */}
 				<motion.h1
 					className="text-5xl md:text-7xl font-bold text-white mb-6"
 					initial={{ opacity: 0, y: 20 }}

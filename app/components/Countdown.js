@@ -13,6 +13,7 @@ const Countdown = () => {
 		minutes: 0,
 		seconds: 0,
 	});
+	const [isVisible, setIsVisible] = useState(true);
 
 	useEffect(() => {
 		const fetchCountdownDate = async () => {
@@ -29,6 +30,13 @@ const Countdown = () => {
 						const now = new Date().getTime();
 						const distance = countDownDate - now;
 
+						if (distance < 0) {
+							clearInterval(timer);
+							setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+							setIsVisible(false);
+							return;
+						}
+
 						setTimeLeft({
 							days: Math.floor(distance / (1000 * 60 * 60 * 24)),
 							hours: Math.floor(
@@ -37,22 +45,20 @@ const Countdown = () => {
 							minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
 							seconds: Math.floor((distance % (1000 * 60)) / 1000),
 						});
-
-						if (distance < 0) {
-							clearInterval(timer);
-							setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-						}
 					}, 1000);
 
 					return () => clearInterval(timer);
 				}
 			} catch (error) {
 				console.error("Failed to fetch countdown date:", error);
+				setIsVisible(false);
 			}
 		};
 
 		fetchCountdownDate();
 	}, []);
+
+	if (!isVisible) return null;
 
 	return (
 		<div

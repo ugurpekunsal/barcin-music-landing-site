@@ -1,9 +1,9 @@
 "use client";
 
-import { useTranslations } from "../hooks/useTranslations";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import LiveStreams from "../components/LiveStreams";
+import { useTranslations } from "../../hooks/useTranslations";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import LiveStreams from "../../components/LiveStreams";
 
 export default function LivePage() {
 	const { t } = useTranslations();
