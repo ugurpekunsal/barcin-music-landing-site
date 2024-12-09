@@ -1,20 +1,44 @@
-import { createClient } from "contentful";
+import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 
-const client = createClient({
-	space: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID,
-	accessToken: process.env.CONTENTFUL_DELIVERY_TOKEN,
-});
+export const runtime = 'edge';
 
 export async function GET() {
+	const cookieStore = cookies();
+	const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
+	
 	try {
-		const entry = await client.getEntries({
-			content_type: "barcinMusic",
-			limit: 1,
-		});
+		const { data, error } = await supabase
+			.from('release_dates')
+			.select('*')
+			.order('date', { ascending: true })
+			.limit(1);
 
-		return Response.json(entry);
+		if (error) throw error;
+
+		// Transform the data to match the expected format
+		const transformedData = {
+			items: data ? [
+				{
+					fields: {
+						countdownDate: data[0]?.date
+					}
+				}
+			] : []
+		};
+
+		return new Response(JSON.stringify(transformedData), {
+			status: 200,
+			headers: { 'Content-Type': 'application/json' },
+		});
 	} catch (error) {
-		console.error("Content fetch error:", error);
-		return Response.json({ error: "Failed to fetch content" }, { status: 500 });
+		console.error('Error fetching content:', error);
+		return new Response(JSON.stringify({ 
+			error: error.message,
+			items: [] 
+		}), {
+			status: 500,
+			headers: { 'Content-Type': 'application/json' },
+		});
 	}
 }
