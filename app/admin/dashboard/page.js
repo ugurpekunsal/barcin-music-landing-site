@@ -28,10 +28,10 @@ export default function AdminDashboard() {
 				</div>
 				<nav className="space-x-4">
 					<a
-						href="/admin/events"
+						href="/admin/release-date"
 						className="text-purple-600 hover:text-purple-800"
 					>
-						Manage Events
+						Manage Release Date
 					</a>
 					{/* Add more admin navigation links here */}
 				</nav>
