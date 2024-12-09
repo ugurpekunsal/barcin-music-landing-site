@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { supabase } from "../../utils/supabase";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 
 export default function AdminLogin() {
@@ -10,11 +10,12 @@ export default function AdminLogin() {
 	const [error, setError] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const router = useRouter();
+	const supabase = createClientComponentClient();
 
-	async function handleLogin(e) {
+	const handleLogin = async (e) => {
 		e.preventDefault();
-		setLoading(true);
 		setError(null);
+		setLoading(true);
 
 		try {
 			const { data, error } = await supabase.auth.signInWithPassword({
@@ -24,36 +25,27 @@ export default function AdminLogin() {
 
 			if (error) throw error;
 
-			// Check if user is in admin_users table
-			const { data: adminData, error: adminError } = await supabase
-				.from("admin_users")
-				.select("user_id")
-				.eq("user_id", data.user.id)
-				.single();
-
-			if (adminError || !adminData) {
-				throw new Error("Unauthorized access");
-			}
-
 			router.push("/admin/dashboard");
+			router.refresh();
 		} catch (error) {
+			console.error("Login error:", error);
 			setError(error.message);
 		} finally {
 			setLoading(false);
 		}
-	}
+	};
 
 	return (
-		<div className="min-h-screen flex items-center justify-center bg-gray-100">
-			<div className="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow">
+		<div className="min-h-screen flex items-center justify-center bg-purple-100">
+			<div className="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow-md">
 				<div>
-					<h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+					<h2 className="text-center text-3xl font-extrabold text-gray-900">
 						Admin Login
 					</h2>
 				</div>
 				<form className="mt-8 space-y-6" onSubmit={handleLogin}>
 					{error && (
-						<div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+						<div className="bg-red-50 border-l-4 border-red-400 p-4 text-red-700">
 							{error}
 						</div>
 					)}
@@ -67,10 +59,10 @@ export default function AdminLogin() {
 								name="email"
 								type="email"
 								required
-								value={email}
-								onChange={(e) => setEmail(e.target.value)}
 								className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
 								placeholder="Email address"
+								value={email}
+								onChange={(e) => setEmail(e.target.value)}
 							/>
 						</div>
 						<div>
@@ -82,10 +74,10 @@ export default function AdminLogin() {
 								name="password"
 								type="password"
 								required
-								value={password}
-								onChange={(e) => setPassword(e.target.value)}
 								className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm"
 								placeholder="Password"
+								value={password}
+								onChange={(e) => setPassword(e.target.value)}
 							/>
 						</div>
 					</div>

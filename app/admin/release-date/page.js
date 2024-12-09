@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import AdminLayout from "../../components/layout/AdminLayout";
 
 export default function ReleaseDateAdmin() {
@@ -10,6 +11,7 @@ export default function ReleaseDateAdmin() {
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState('');
+  const supabase = createClientComponentClient();
 
   useEffect(() => {
     fetchReleaseDate();
@@ -41,10 +43,17 @@ export default function ReleaseDateAdmin() {
     setIsSaving(true);
 
     try {
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        throw new Error('No active session');
+      }
+
       const response = await fetch(`/api/release-date`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${session.access_token}`
         },
         body: JSON.stringify({ date: new Date(newDate).toISOString() }),
       });

@@ -2,42 +2,36 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "../../utils/supabase";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 export default function AdminLayout({ children }) {
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(true);
-	const [isAuthorized, setIsAuthorized] = useState(false);
+	const supabase = createClientComponentClient();
 
 	useEffect(() => {
 		checkUser();
+
+		const {
+			data: { subscription },
+		} = supabase.auth.onAuthStateChange((event, session) => {
+			if (!session) {
+				router.push('/admin/login');
+			}
+		});
+
+		return () => subscription.unsubscribe();
 	}, []);
 
 	async function checkUser() {
 		try {
-			const {
-				data: { session },
-			} = await supabase.auth.getSession();
+			const { data: { session } } = await supabase.auth.getSession();
 			if (!session) {
-				router.push("/admin/login");
-				return;
+				router.push('/admin/login');
 			}
-
-			// Check if user is admin
-			const { data: adminData, error: adminError } = await supabase
-				.from("admin_users")
-				.select("user_id")
-				.eq("user_id", session.user.id)
-				.single();
-
-			if (adminError || !adminData) {
-				router.push("/admin/login");
-				return;
-			}
-
-			setIsAuthorized(true);
 		} catch (error) {
-			router.push("/admin/login");
+			console.error('Auth error:', error);
+			router.push('/admin/login');
 		} finally {
 			setIsLoading(false);
 		}
@@ -46,13 +40,9 @@ export default function AdminLayout({ children }) {
 	if (isLoading) {
 		return (
 			<div className="min-h-screen flex items-center justify-center">
-				<div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-purple-600"></div>
+				<div className="text-lg">Loading...</div>
 			</div>
 		);
-	}
-
-	if (!isAuthorized) {
-		return null;
 	}
 
 	return (

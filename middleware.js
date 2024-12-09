@@ -1,36 +1,35 @@
-import { NextResponse } from "next/server";
+import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs';
+import { NextResponse } from 'next/server';
 
-export function middleware() {
-	const response = NextResponse.next();
+export async function middleware(req) {
+	const res = NextResponse.next();
+	const supabase = createMiddlewareClient({ req, res });
 
-	// Add CSP headers
-	response.headers.set(
-		"Content-Security-Policy",
-		`
-            default-src 'self';
-            connect-src 'self' https://*.supabase.co *.contentful.com;
-            script-src 'self' 'unsafe-eval' 'unsafe-inline';
-            style-src 'self' 'unsafe-inline';
-            img-src 'self' blob: data:;
-            font-src 'self';
-            frame-src 'self' https://discord.com https://player.twitch.tv https://player.kick.com;
-        `
-			.replace(/\s+/g, " ")
-			.trim()
-	);
+	const {
+		data: { session },
+	} = await supabase.auth.getSession();
 
-	return response;
+	// If no session and trying to access protected route
+	if (!session && req.nextUrl.pathname.startsWith('/admin')) {
+		// Allow access to login page
+		if (req.nextUrl.pathname === '/admin/login') {
+			return res;
+		}
+		// Redirect to login page
+		const redirectUrl = new URL('/admin/login', req.url);
+		return NextResponse.redirect(redirectUrl);
+	}
+
+	// If session exists and trying to access login page
+	if (session && req.nextUrl.pathname === '/admin/login') {
+		// Redirect to dashboard
+		const redirectUrl = new URL('/admin/dashboard', req.url);
+		return NextResponse.redirect(redirectUrl);
+	}
+
+	return res;
 }
 
 export const config = {
-	matcher: [
-		/*
-		 * Match all request paths except for the ones starting with:
-		 * - api (API routes)
-		 * - _next/static (static files)
-		 * - _next/image (image optimization files)
-		 * - favicon.ico (favicon file)
-		 */
-		"/((?!api|_next/static|_next/image|favicon.ico).*)",
-	],
-};
+	matcher: ['/admin/:path*']
+}
