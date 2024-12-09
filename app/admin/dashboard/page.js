@@ -1,17 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { supabase } from "../../utils/supabase";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import AdminLayout from "../../components/layout/AdminLayout";
 import { useRouter } from "next/navigation";
 
 export default function AdminDashboard() {
-	const [events, setEvents] = useState([]);
 	const router = useRouter();
+	const supabase = createClientComponentClient();
 
 	const handleSignOut = async () => {
 		await supabase.auth.signOut();
-		router.push("/");
+		router.push("/admin/login");
+		router.refresh();
 	};
 
 	return (
@@ -21,19 +22,24 @@ export default function AdminDashboard() {
 					<h1 className="text-2xl font-bold">Admin Dashboard</h1>
 					<button
 						onClick={handleSignOut}
-						className="bg-red-500 text-white px-4 py-2 rounded"
+						className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
 					>
 						Sign Out
 					</button>
 				</div>
-				<nav className="space-x-4">
+				<nav className="space-y-2">
 					<a
 						href="/admin/release-date"
-						className="text-purple-600 hover:text-purple-800"
+						className="block text-purple-600 hover:text-purple-800"
 					>
 						Manage Release Date
 					</a>
-					{/* Add more admin navigation links here */}
+					<a
+						href="/admin/subscribers"
+						className="block text-purple-600 hover:text-purple-800"
+					>
+						Email Subscribers
+					</a>
 				</nav>
 			</div>
 		</AdminLayout>

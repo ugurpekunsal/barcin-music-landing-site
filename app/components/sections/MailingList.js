@@ -1,21 +1,21 @@
 "use client";
-import React, { useState } from "react";
-import { useTranslations } from "../../hooks/useTranslations";
-import styles from "../ui/Countdown.module.css";
 
-const MailingList = () => {
+import { useState } from "react";
+import { useTranslations } from "../../hooks/useTranslations";
+
+export default function MailingList() {
 	const { t } = useTranslations();
 	const [email, setEmail] = useState("");
-	const [status, setStatus] = useState("idle");
-	const [message, setMessage] = useState(null);
+	const [status, setStatus] = useState({ type: "", message: "" });
+	const [isLoading, setIsLoading] = useState(false);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		setStatus("loading");
-		setMessage(null);
+		setIsLoading(true);
+		setStatus({ type: "", message: "" });
 
 		try {
-			const response = await fetch("https://formspree.io/f/your-form-id", {
+			const response = await fetch("/api/marketing/subscribe", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -23,58 +23,57 @@ const MailingList = () => {
 				body: JSON.stringify({ email }),
 			});
 
-			if (response.ok) {
-				setStatus("success");
-				setMessage(t("subscribeSuccess"));
-				setEmail("");
-			} else {
-				setStatus("error");
-				setMessage(t("subscribeError"));
+			const data = await response.json();
+
+			if (!response.ok) {
+				throw new Error(data.error || "Failed to subscribe");
 			}
-		} catch (err) {
-			setStatus("error");
-			setMessage(t("subscribeError"));
+
+			setStatus({ type: "success", message: t("subscribeSuccess") });
+			setEmail("");
+		} catch (error) {
+			setStatus({ type: "error", message: error.message });
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
 	return (
-		<div className={`${styles.countdown} container mx-auto px-6`}>
-			<h2 className={styles.title}>{t("joinMailingList")}</h2>
-			<p className="text-purple-700 mb-4">{t("mailingListDescription")}</p>
-
-			{message && (
-				<p
-					className={`mb-4 ${
-						status === "success" ? "text-green-600" : "text-red-600"
-					}`}
-				>
-					{message}
-				</p>
-			)}
-
-			<form
-				onSubmit={handleSubmit}
-				className="flex flex-col sm:flex-row justify-center items-center gap-4"
-			>
-				<input
-					type="email"
-					value={email}
-					onChange={(e) => setEmail(e.target.value)}
-					placeholder={t("enterEmail")}
-					required
-					disabled={status === "loading"}
-					className="w-full sm:w-auto px-4 py-2 rounded-full border-2 border-purple-300 focus:outline-none focus:border-purple-500 disabled:opacity-50"
-				/>
-				<button
-					type="submit"
-					disabled={status === "loading"}
-					className="w-full sm:w-auto bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-full transition duration-300 disabled:opacity-50"
-				>
-					{status === "loading" ? t("subscribing") : t("subscribe")}
-				</button>
-			</form>
-		</div>
+		<section className="py-16 bg-purple-900 text-white">
+			<div className="container mx-auto px-6">
+				<div className="max-w-2xl mx-auto text-center">
+					<h2 className="text-3xl font-bold mb-4">{t("joinMailingList")}</h2>
+					<p className="mb-8">{t("mailListDescription")}</p>
+					
+					<form onSubmit={handleSubmit} className="space-y-4">
+						<div className="flex flex-col sm:flex-row gap-4 justify-center">
+							<input
+								type="email"
+								value={email}
+								onChange={(e) => setEmail(e.target.value)}
+								placeholder={t("emailPlaceholder")}
+								className="px-4 py-2 rounded-lg text-gray-900 w-full sm:w-auto"
+								required
+							/>
+							<button
+								type="submit"
+								disabled={isLoading}
+								className="bg-purple-600 px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50"
+							>
+								{isLoading ? t("subscribing") : t("subscribe")}
+							</button>
+						</div>
+						
+						{status.message && (
+							<div className={`text-sm ${
+								status.type === "success" ? "text-green-300" : "text-red-300"
+							}`}>
+								{status.message}
+							</div>
+						)}
+					</form>
+				</div>
+			</div>
+		</section>
 	);
-};
-
-export default MailingList;
+}

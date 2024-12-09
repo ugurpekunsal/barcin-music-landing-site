@@ -4,8 +4,10 @@ import { cookies } from "next/headers";
 export const runtime = 'edge';
 
 export async function GET() {
+  const cookieStore = cookies();
+  const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
+  
   try {
-    const supabase = createRouteHandlerClient({ cookies });
     const { data, error } = await supabase
       .from('release_dates')
       .select('*')
@@ -28,20 +30,19 @@ export async function GET() {
 }
 
 export async function PATCH(request) {
+  const cookieStore = cookies();
+  const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
+  
   try {
-    const supabase = createRouteHandlerClient({ cookies });
     const { data: { session } } = await supabase.auth.getSession();
     
     if (!session) {
-      const authHeader = request.headers.get('Authorization');
-      if (!authHeader?.startsWith('Bearer ')) {
-        return new Response(JSON.stringify({ 
-          error: 'Authentication required' 
-        }), {
-          status: 401,
-          headers: { 'Content-Type': 'application/json' },
-        });
-      }
+      return new Response(JSON.stringify({ 
+        error: 'Authentication required' 
+      }), {
+        status: 401,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     const body = await request.json();
