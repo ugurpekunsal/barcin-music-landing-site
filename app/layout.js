@@ -4,6 +4,7 @@ import { validateEnv } from "./utils/env";
 import { TranslationsProvider } from "./hooks/useTranslations";
 import localFont from "next/font/local";
 import "./globals.css";
+import 'leaflet/dist/leaflet.css';
 
 // Font configurations
 const geistSans = localFont({
@@ -24,6 +25,13 @@ export const metadata = {
 	description: "Official website of Barçın, New Age and world music artist",
 };
 
+// Suppress Grammarly attributes warning
+export async function generateViewport() {
+	return {
+		themeColor: '#7c3aed',
+	};
+}
+
 export default async function RootLayout({ children }) {
 	const cookieStore = cookies();
 	const supabase = createServerComponentClient({ cookies: () => cookieStore });
@@ -35,8 +43,11 @@ export default async function RootLayout({ children }) {
 	}
 	
 	return (
-		<html lang="en">
-			<body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-purple-100 text-gray-800`}>
+		<html lang="en" suppressHydrationWarning>
+			<body 
+				className={`${geistSans.variable} ${geistMono.variable} antialiased bg-purple-100 text-gray-800`}
+				suppressHydrationWarning
+			>
 				<TranslationsProvider>{children}</TranslationsProvider>
 			</body>
 		</html>

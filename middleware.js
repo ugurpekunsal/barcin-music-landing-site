@@ -10,15 +10,34 @@ export async function middleware(req) {
 	// Add CSP headers
 	const cspHeader = `
 		default-src 'self';
-		script-src 'self' 'unsafe-inline' 'unsafe-eval';
+		script-src 'self' 'unsafe-inline' 'unsafe-eval' 
+			https://*.twitch.tv
+			https://*.cloudfront.net
+			https://player.twitch.tv;
 		style-src 'self' 'unsafe-inline';
-		img-src 'self' blob: data:;
+		img-src 'self' blob: data: 
+			https://*.tile.openstreetmap.org
+			https://*.twitch.tv
+			https://*.cloudfront.net;
 		font-src 'self';
 		connect-src 'self' 
 			https://*.supabase.co
 			https://*.supabase.in
 			https://faqugyfltlyzbqramjtc.supabase.co
+			https://ip-api.com
+			wss://*.twitch.tv
+			https://*.twitch.tv
+			https://*.cloudfront.net
 			*.contentful.com;
+		frame-src 'self' 
+			https://player.twitch.tv
+			https://www.youtube.com 
+			https://youtube.com
+			https://open.spotify.com;
+		media-src 'self' 
+			blob: 
+			https://*.twitch.tv
+			https://*.cloudfront.net;
 		frame-ancestors 'none';
 	`.replace(/\s{2,}/g, ' ').trim();
 

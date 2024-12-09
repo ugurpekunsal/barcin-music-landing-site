@@ -59,5 +59,8 @@
 	"emailAlreadySubscribed": "Bu e-posta zaten kayıtlı.",
 	"invalidEmail": "Lütfen geçerli bir e-posta adresi girin.",
 	"alreadySubscribedFromIP": "Bu konumdan zaten bir abonelik mevcut.",
-	"liveStreams": "Canlı Yayınlar"
+	"liveStreams": "Canlı Yayınlar",
+	"whereListenersFrom": "Dinleyicilerim Nereden Geliyor",
+	"visits": "Ziyaretler",
+	"errorLoadingMap": "Harita yüklenirken bir hata oluştu"
 }

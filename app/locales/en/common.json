@@ -64,5 +64,8 @@
 	"emailAlreadySubscribed": "This email is already subscribed.",
 	"invalidEmail": "Please enter a valid email address.",
 	"alreadySubscribedFromIP": "A subscription already exists from this location.",
-	"liveStreams": "Live Streams"
+	"liveStreams": "Live Streams",
+	"whereListenersFrom": "Where My Listeners Are From",
+	"visits": "Visits",
+	"errorLoadingMap": "Error loading the map"
 }
