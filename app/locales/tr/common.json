@@ -62,5 +62,9 @@
 	"liveStreams": "Canlı Yayınlar",
 	"whereListenersFrom": "Dinleyicilerim Nereden Geliyor",
 	"visits": "Ziyaretler",
-	"errorLoadingMap": "Harita yüklenirken bir hata oluştu"
+	"errorLoadingMap": "Harita yüklenirken bir hata oluştu",
+	"cookieConsentText": "Bu siteyi kullanırken çerezleri ve konum verilerini topluyoruz. 'Kabul Et' butonuna tıklayarak, bu verilerin nasıl kullanıldığını anlayabilirsiniz.",
+	"privacyPolicy": "Gizlilik Politikası",
+	"accept": "Kabul Et",
+	"learnMore": "Daha Fazla Öğren"
 }

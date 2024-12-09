@@ -5,6 +5,18 @@ export const runtime = 'edge';
 
 export async function POST(request) {
   const cookieStore = cookies();
+  const hasConsent = cookieStore.get('cookieConsent');
+
+  if (!hasConsent?.value) {
+    return new Response(JSON.stringify({ 
+      success: false,
+      message: 'User consent required'
+    }), {
+      status: 403,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
   const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
   
   try {

@@ -1,10 +1,10 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { validateEnv } from "./utils/env";
-import { TranslationsProvider } from "./hooks/useTranslations";
 import localFont from "next/font/local";
 import "./globals.css";
 import 'leaflet/dist/leaflet.css';
+import ClientProviders from './components/providers/ClientProviders';
 
 // Font configurations
 const geistSans = localFont({
@@ -33,7 +33,7 @@ export async function generateViewport() {
 }
 
 export default async function RootLayout({ children }) {
-	const cookieStore = cookies();
+	const cookieStore = await cookies();
 	const supabase = createServerComponentClient({ cookies: () => cookieStore });
 	
 	try {
@@ -48,7 +48,9 @@ export default async function RootLayout({ children }) {
 				className={`${geistSans.variable} ${geistMono.variable} antialiased bg-purple-100 text-gray-800`}
 				suppressHydrationWarning
 			>
-				<TranslationsProvider>{children}</TranslationsProvider>
+				<ClientProviders>
+					{children}
+				</ClientProviders>
 			</body>
 		</html>
 	);

@@ -67,5 +67,9 @@
 	"liveStreams": "Live Streams",
 	"whereListenersFrom": "Where My Listeners Are From",
 	"visits": "Visits",
-	"errorLoadingMap": "Error loading the map"
+	"errorLoadingMap": "Error loading the map",
+	"cookieConsentText": "We use cookies and collect location data to improve your experience and analyze our traffic. By clicking 'Accept', you consent to our use of this data as described in our",
+	"privacyPolicy": "Privacy Policy",
+	"accept": "Accept",
+	"learnMore": "Learn More"
 }
