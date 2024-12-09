@@ -78,26 +78,46 @@ export async function POST(request) {
 
     } catch (geoError) {
       console.error('Geolocation error:', geoError);
-      // Fallback to default location for development
-      const { error: insertError } = await supabase
-        .from('visitor_locations')
-        .insert([{
-          country: 'Development',
-          city: 'Local',
-          latitude: 0,
-          longitude: 0,
-          visit_count: 1
-        }]);
+      // Instead of inserting development data, let's try to get location from IP
+      try {
+        const ipResponse = await fetch('https://ipapi.co/json/');
+        if (!ipResponse.ok) throw new Error('IP lookup failed');
+        
+        const ipData = await ipResponse.json();
+        const { error: insertError } = await supabase
+          .from('visitor_locations')
+          .insert([{
+            country: ipData.country_name,
+            city: ipData.city,
+            latitude: ipData.latitude,
+            longitude: ipData.longitude,
+            visit_count: 1
+          }]);
 
-      if (insertError) throw insertError;
+        if (insertError) throw insertError;
 
-      return new Response(JSON.stringify({ 
-        success: true,
-        location: 'development'
-      }), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      });
+        return new Response(JSON.stringify({ 
+          success: true,
+          location: ipData
+        }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      } catch (ipError) {
+        console.error('IP lookup error:', ipError);
+        // Only use development fallback if both geo and IP lookup fail
+        const { error: insertError } = await supabase
+          .from('visitor_locations')
+          .insert([{
+            country: 'Unknown',
+            city: 'Unknown',
+            latitude: 0,
+            longitude: 0,
+            visit_count: 1
+          }]);
+
+        if (insertError) throw insertError;
+      }
     }
 
   } catch (error) {
