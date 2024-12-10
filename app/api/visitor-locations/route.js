@@ -10,18 +10,24 @@ export async function GET() {
     const cookieStore = await cookies();
     const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
     
-    // Get Spotify stats first
+    console.log('Fetching Spotify stats...');
     const spotifyStats = await getArtistStats();
+    console.log('Spotify stats:', spotifyStats);
     
-    // Get visitor locations from database
+    console.log('Fetching visitor locations...');
     const { data: visitorData, error } = await supabase
       .from('visitor_locations')
       .select('city, country, latitude, longitude, visit_count')
       .not('city', 'eq', 'Unknown')
       .not('country', 'eq', 'Unknown');
 
-    if (error) throw error;
+    if (error) {
+      console.error('Supabase error:', error);
+      throw error;
+    }
 
+    console.log(`Found ${visitorData.length} visitor locations`);
+    
     // Aggregate visitor data
     const cityMap = new Map();
     
