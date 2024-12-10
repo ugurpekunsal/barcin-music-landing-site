@@ -18,7 +18,9 @@ export async function middleware(req) {
 		img-src 'self' blob: data: 
 			https://*.tile.openstreetmap.org
 			https://*.twitch.tv
-			https://*.cloudfront.net;
+			https://*.cloudfront.net
+			https://i.scdn.co
+			${process.env.NEXT_PUBLIC_SUPABASE_URL};
 		font-src 'self';
 		connect-src 'self' 
 			https://*.supabase.co

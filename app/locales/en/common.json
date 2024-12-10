@@ -70,5 +70,10 @@
 	"accept": "Accept",
 	"learnMore": "Learn More",
 	"mailListDescription": "Subscribe to receive updates about new releases, live streams, and exclusive content.",
-	"emailPlaceholder": "Enter your email"
+	"emailPlaceholder": "Enter your email",
+	"spotifyStats": "Spotify Statistics",
+	"followers": "Followers",
+	"monthlyListeners": "Monthly Listeners",
+	"topTracks": "Top Tracks",
+	"popularity": "Popularity"
 }

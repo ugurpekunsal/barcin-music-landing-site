@@ -70,5 +70,10 @@
 	"hours": "Saat",
 	"minutes": "Dakika",
 	"seconds": "Saniye",
-	"preSaveOnSpotify": "Spotify'da Ön Kaydet"
+	"preSaveOnSpotify": "Spotify'da Ön Kaydet",
+	"spotifyStats": "Spotify İstatistikleri",
+	"followers": "Takipçiler",
+	"monthlyListeners": "Aylık Dinleyiciler",
+	"topTracks": "En Çok Dinlenenler",
+	"popularity": "Popülarite"
 }

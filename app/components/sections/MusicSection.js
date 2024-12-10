@@ -4,8 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "../../hooks/useTranslations";
 import { useState, useEffect } from "react";
+import SpotifyStats from '../SpotifyStats';
 
-export default function MusicSection() {
+export default function MusicSection({ showMap = false }) {
 	const { t } = useTranslations();
 	const [albums, setAlbums] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
@@ -77,6 +78,7 @@ export default function MusicSection() {
 					</Link>
 				</div>
 			</div>
+			{showMap && <SpotifyStats showMap={showMap} />}
 		</section>
 	);
 }

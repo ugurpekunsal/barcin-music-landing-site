@@ -3,7 +3,8 @@ const nextConfig = {
 	images: {
 		domains: [
 			'images.ctfassets.net',
-			'faqugyfltlyzbqramjtc.supabase.co'
+			'faqugyfltlyzbqramjtc.supabase.co',
+			'i.scdn.co'
 		],
 		formats: ['image/avif', 'image/webp'],
 	},

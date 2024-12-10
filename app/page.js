@@ -6,7 +6,6 @@ import MusicSection from "./components/sections/MusicSection";
 import About from "./components/sections/About";
 import LiveStreams from "./components/sections/LiveStreams";
 import MailingList from "./components/sections/MailingList";
-import VisitorMap from './components/sections/VisitorMap';
 
 export default function Home() {
 	return (
@@ -18,7 +17,6 @@ export default function Home() {
 			<About />
 			<MailingList />
 			<LiveStreams />
-			<VisitorMap />
 			<Footer />
 		</main>
 	);

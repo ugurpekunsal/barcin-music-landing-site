@@ -5,6 +5,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import 'leaflet/dist/leaflet.css';
 import ClientProviders from './components/providers/ClientProviders';
+import './styles/map.css';
 
 // Font configurations
 const geistSans = localFont({

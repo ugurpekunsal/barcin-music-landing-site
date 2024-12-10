@@ -8,7 +8,7 @@ export default function MusicPage() {
 		<>
 			<Header />
 			<main>
-				<MusicSection />
+				<MusicSection showMap={true} />
 				<VideoSection />
 			</main>
 			<Footer />

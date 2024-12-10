@@ -2,7 +2,10 @@ const requiredEnvVars = [
 	"NEXT_PUBLIC_CONTENTFUL_SPACE_ID",
 	"CONTENTFUL_DELIVERY_TOKEN",
 	"NEXT_PUBLIC_SUPABASE_URL",
-	"NEXT_PUBLIC_SUPABASE_ANON_KEY"
+	"NEXT_PUBLIC_SUPABASE_ANON_KEY",
+	"SPOTIFY_CLIENT_ID",
+	"SPOTIFY_CLIENT_SECRET",
+	"OPENCAGE_API_KEY"
 ];
 
 export function validateEnv() {
@@ -15,14 +18,9 @@ export function validateEnv() {
 		);
 	}
 
-	// Validate Contentful Space ID format
-	if (!/^[a-z0-9]+$/.test(process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID)) {
-		throw new Error("Invalid CONTENTFUL_SPACE_ID format");
-	}
-
-	// Validate Supabase URL format
-	if (!process.env.NEXT_PUBLIC_SUPABASE_URL.startsWith('https://')) {
-		throw new Error("Invalid SUPABASE_URL format");
+	// Validate OpenCage API Key format (should be 32 characters)
+	if (!/^[a-f0-9]{32}$/.test(process.env.OPENCAGE_API_KEY)) {
+		throw new Error("Invalid OPENCAGE_API_KEY format");
 	}
 
 	return true;
