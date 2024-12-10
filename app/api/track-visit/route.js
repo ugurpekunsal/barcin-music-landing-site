@@ -1,8 +1,5 @@
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import { geocode, reverseGeocode } from '../../utils/geocoding';
-
-export const runtime = 'edge';
 
 export async function POST(request) {
   const cookieStore = cookies();
@@ -18,22 +15,13 @@ export async function POST(request) {
     });
   }
 
-  const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
-  
   try {
-    // Get IP from request headers
-    const forwarded = request.headers.get("x-forwarded-for");
-    const ip = forwarded 
-      ? forwarded.split(', ')[0] 
-      : request.headers.get("x-real-ip");
+    const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
+    const ipResponse = await fetch('https://ipapi.co/json/');
     
-    if (!ip) {
-      throw new Error('No IP address found');
+    if (!ipResponse.ok) {
+      throw new Error('Failed to fetch IP data');
     }
-
-    // Try IP geolocation first
-    const ipResponse = await fetch(`https://ipapi.co/${ip}/json/`);
-    if (!ipResponse.ok) throw new Error('IP lookup failed');
     
     const ipData = await ipResponse.json();
     

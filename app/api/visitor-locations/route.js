@@ -1,27 +1,9 @@
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { getArtistStats } from '../../utils/spotify';
-import { geocode } from '../../utils/geocoding';
+import { getCountryLocation } from '../../utils/countryCoordinates';
 
 export const runtime = 'edge';
-
-async function getCountryCoordinates(countryName) {
-  try {
-    const result = await geocode(countryName);
-    if (result) {
-      return {
-        latitude: result.lat,
-        longitude: result.lng,
-        country: result.components.country,
-        city: result.components.city || 'Capital'
-      };
-    }
-    return null;
-  } catch (error) {
-    console.error('Error geocoding country:', error);
-    return null;
-  }
-}
 
 export async function GET() {
   try {
@@ -61,13 +43,13 @@ export async function GET() {
       }
     });
 
-    // Process Spotify markets
-    if (spotifyStats.markets && spotifyStats.markets.length > 0) {
-      // Process markets sequentially to avoid rate limits
-      for (const market of spotifyStats.markets) {
-        const marketLocation = await getCountryCoordinates(market);
+    // Add Spotify market locations
+    if (spotifyStats.markets?.length > 0) {
+      const listenersPerMarket = Math.floor(spotifyStats.monthlyListeners / spotifyStats.markets.length);
+      
+      spotifyStats.markets.forEach(market => {
+        const marketLocation = getCountryLocation(market);
         if (marketLocation) {
-          const listenersPerMarket = Math.floor(spotifyStats.monthlyListeners / spotifyStats.markets.length);
           cityMap.set(market, {
             city: marketLocation.city,
             country: marketLocation.country,
@@ -77,7 +59,7 @@ export async function GET() {
             type: 'spotify'
           });
         }
-      }
+      });
     }
 
     // Convert to array and sort by visit count
