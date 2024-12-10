@@ -33,7 +33,6 @@
 	"video1Description": "Experience Barçın's captivating performance of 'Yine Bir Gidene' (Another Departure).",
 	"video2Description": "Listen to Barçın's heartfelt rendition of 'Seni Seviyorum' (I Love You).",
 	"video3Description": "Enjoy a live performance of 'Yine Bir Gidene' by Barçın.",
-	"followBarcin": "Follow Barçın",
 	"quickLinks": "Quick Links",
 	"contact": "Contact",
 	"emailContact": "Email",
@@ -55,7 +54,6 @@
 	"seconds": "Seconds",
 	"preSaveOnSpotify": "Pre-save on Spotify",
 	"joinMailingList": "Join Our Mailing List",
-	"mailingListDescription": "Subscribe to receive updates about new releases, live streams, and exclusive content.",
 	"enterEmail": "Enter your email",
 	"subscribe": "Subscribe",
 	"subscribing": "Subscribing...",
@@ -64,12 +62,13 @@
 	"emailAlreadySubscribed": "This email is already subscribed.",
 	"invalidEmail": "Please enter a valid email address.",
 	"alreadySubscribedFromIP": "A subscription already exists from this location.",
-	"liveStreams": "Live Streams",
 	"whereListenersFrom": "Where My Listeners Are From",
 	"visits": "Visits",
 	"errorLoadingMap": "Error loading the map",
 	"cookieConsentText": "We use cookies and collect location data to improve your experience and analyze our traffic. By clicking 'Accept', you consent to our use of this data as described in our",
 	"privacyPolicy": "Privacy Policy",
 	"accept": "Accept",
-	"learnMore": "Learn More"
+	"learnMore": "Learn More",
+	"mailListDescription": "Subscribe to receive updates about new releases, live streams, and exclusive content.",
+	"emailPlaceholder": "Enter your email"
 }
