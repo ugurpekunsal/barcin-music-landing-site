@@ -29,6 +29,12 @@ export default function AdminDashboard() {
 				</div>
 				<nav className="space-y-2">
 					<a
+						href="/admin/albums"
+						className="block text-purple-600 hover:text-purple-800"
+					>
+						Manage Albums
+					</a>
+					<a
 						href="/admin/release-date"
 						className="block text-purple-600 hover:text-purple-800"
 					>

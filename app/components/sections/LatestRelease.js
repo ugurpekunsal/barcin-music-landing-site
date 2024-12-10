@@ -3,40 +3,76 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "../../hooks/useTranslations";
+import { useState, useEffect } from "react";
 
 export default function LatestRelease() {
 	const { t } = useTranslations();
+	const [latestAlbum, setLatestAlbum] = useState(null);
+	const [isLoading, setIsLoading] = useState(true);
+	const [error, setError] = useState(null);
+
+	useEffect(() => {
+		fetchLatestAlbum();
+	}, []);
+
+	async function fetchLatestAlbum() {
+		try {
+			const response = await fetch('/api/albums');
+			if (!response.ok) throw new Error('Failed to fetch albums');
+			const data = await response.json();
+			const latest = data.find(album => album.is_latest);
+			setLatestAlbum(latest);
+		} catch (err) {
+			console.error('Error fetching latest album:', err);
+			setError(err.message);
+		} finally {
+			setIsLoading(false);
+		}
+	}
+
+	if (isLoading) {
+		return (
+			<section className="py-16 bg-white">
+				<div className="container mx-auto px-6">
+					<h2 className="section-heading">{t("latestRelease")}</h2>
+					<div className="flex justify-center">
+						<div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-700"></div>
+					</div>
+				</div>
+			</section>
+		);
+	}
+
+	if (!latestAlbum) return null;
 
 	return (
-		<section id="latest-release" className="py-16 bg-white">
+		<section className="py-16 bg-white">
 			<div className="container mx-auto px-6">
 				<h2 className="section-heading">{t("latestRelease")}</h2>
-				<div className="flex flex-col md:flex-row items-center justify-center gap-8">
-					<Image
-						src="/images/memores-nostri-cover.jpg"
-						alt="Memores Nostri Album Cover"
-						width={300}
-						height={300}
-						className="rounded-lg shadow-lg mb-6 md:mb-0 md:mr-8"
-					/>
-					<div className="text-center md:text-left">
-						<h3 className="text-2xl font-semibold mb-2">Memores Nostri</h3>
-						<p className="mb-4">
-							Experience Barcın&apos;s latest emotional journey through sound.
-						</p>
+				<div className="max-w-2xl mx-auto text-center">
+					<Link
+						href={latestAlbum.spotify_link}
+						target="_blank"
+						rel="noopener noreferrer"
+						className="inline-block transition transform hover:scale-105"
+					>
+						<Image
+							src={latestAlbum.cover_url}
+							alt={`${latestAlbum.title} Album Cover`}
+							width={300}
+							height={300}
+							className="rounded-lg shadow-lg mx-auto"
+						/>
+						<p className="mt-4 text-xl font-semibold">{latestAlbum.title}</p>
+					</Link>
+					<div className="mt-6">
 						<Link
-							href="https://open.spotify.com/album/56rSfAxXbHdmsMD0hoqDgP?si=z_qq-X6DRDGxRyP-GSv7HQ"
+							href={latestAlbum.spotify_link}
 							target="_blank"
-							className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded inline-flex items-center"
+							rel="noopener noreferrer"
+							className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
 						>
-							<svg
-								className="fill-current w-4 h-4 mr-2"
-								viewBox="0 0 24 24"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z" />
-							</svg>
-							Play on Spotify
+							{t("listenOnSpotify")}
 						</Link>
 					</div>
 				</div>

@@ -3,48 +3,60 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "../../hooks/useTranslations";
-
-const albums = [
-	{
-		title: "Memores Nostri",
-		cover: "/images/memores-nostri-cover.jpg",
-		link: "https://open.spotify.com/album/56rSfAxXbHdmsMD0hoqDgP?si=z_qq-X6DRDGxRyP-GSv7HQ",
-	},
-	{
-		title: "Bitter",
-		cover: "/images/bitter-cover.png",
-		link: "https://open.spotify.com/album/1BYvgKXvNxnWwtt6NyBBz3?si=Oc_CzVKPQOeyM77MOfmqmw",
-	},
-	{
-		title: "İnan",
-		cover: "/images/inan-cover.png",
-		link: "https://open.spotify.com/album/4OGKoI017XPRVMUczxOWW6?si=5CqEWgYwTZeMmLiIiPXjQw",
-	},
-	{
-		title: "Pure Melancholy",
-		cover: "/images/pure-melancholy-cover.png",
-		link: "https://open.spotify.com/album/https://open.spotify.com/album/7A0SYBDUZDGWC64NPLsgNU?si=Sy3snsAnRPuLF0vetbym4Q",
-	},
-];
+import { useState, useEffect } from "react";
 
 export default function MusicSection() {
 	const { t } = useTranslations();
+	const [albums, setAlbums] = useState([]);
+	const [isLoading, setIsLoading] = useState(true);
+	const [error, setError] = useState(null);
+
+	useEffect(() => {
+		fetchAlbums();
+	}, []);
+
+	async function fetchAlbums() {
+		try {
+			const response = await fetch('/api/albums');
+			if (!response.ok) throw new Error('Failed to fetch albums');
+			const data = await response.json();
+			setAlbums(data);
+		} catch (err) {
+			console.error('Error fetching albums:', err);
+			setError(err.message);
+		} finally {
+			setIsLoading(false);
+		}
+	}
+
+	if (isLoading) {
+		return (
+			<section id="music" className="py-16 mt-20 bg-purple-100">
+				<div className="container mx-auto px-6">
+					<h2 className="section-heading">{t("music")}</h2>
+					<div className="flex justify-center">
+						<div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-700"></div>
+					</div>
+				</div>
+			</section>
+		);
+	}
 
 	return (
 		<section id="music" className="py-16 mt-20 bg-purple-100">
 			<div className="container mx-auto px-6">
 				<h2 className="section-heading">{t("music")}</h2>
 				<div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-					{albums.map((album, index) => (
+					{albums.map((album) => (
 						<Link
-							key={index}
-							href={album.link}
+							key={album.id}
+							href={album.spotify_link}
 							target="_blank"
 							rel="noopener noreferrer"
 							className="transition transform hover:scale-105"
 						>
 							<Image
-								src={album.cover}
+								src={album.cover_url}
 								alt={`${album.title} Album Cover`}
 								width={250}
 								height={250}
